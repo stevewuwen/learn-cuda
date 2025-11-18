@@ -1,0 +1,31 @@
+{
+    "name": "CUDA & Triton Dev Environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-python.python",
+                "NVIDIA.nsight-vscode-edition",
+                "ms-toolsai.jupyter",
+                "ionutvmi.path-autocomplete",
+                "Gruntfuggly.todo-tree",
+                "jeff-hykin.better-cpp-syntax",
+                "cstrap.python-snippets",
+                "ms-python.black-formatter"
+            ],
+            "settings": {
+                // 指定C/C++扩展的头文件路径
+                "C_Cpp.default.includePath": [
+                    "${workspaceFolder}",
+                    "/usr/local/cuda/include"
+                ],
+                "C_Cpp.default.compilerPath": "/usr/local/cuda/bin/nvcc"
+            }
+        }
+    },
+    // 由于没有NVIDIA GPU，我们不需要GPU运行时
+    "runArgs": []
+}
