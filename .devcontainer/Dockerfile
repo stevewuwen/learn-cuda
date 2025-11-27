@@ -1,5 +1,5 @@
 # 使用NVIDIA官方的CUDA基础镜像
-FROM pytorch/pytorch:2.9.1-cuda12.6-cudnn9-devel
+FROM nvcr.io/nvidia/pytorch:24.10-py3
 
 # 设置环境变量，避免安装过程中的交互式提示
 ENV DEBIAN_FRONTEND=noninteractive
