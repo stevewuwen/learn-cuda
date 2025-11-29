@@ -29,17 +29,17 @@ __global__ void matrix_multiplication_shared_mem(const float *__restrict__ A, co
         }
         if (col < K && TILE_WIDTH * i + ty < N)
         {
-            Bs[tx][ty] = B[(TILE_WIDTH * i + ty) * K + col];
+            Bs[ty][tx] = B[(TILE_WIDTH * i + ty) * K + col];
         }
         else
         {
-            Bs[tx][ty] = 0.0f;
+            Bs[ty][tx] = 0.0f;
         }
         __syncthreads(); // 等待线程块里面的线程都搬运完成
 
         for (int j = 0; j < TILE_WIDTH; j++)
         {
-            acc += As[ty][j] * Bs[tx][j]; //访问线程块里面的共享内存时，没有合并访问，只在乎bank config
+            acc += As[ty][j] * Bs[j][tx]; //访问线程块里面的共享内存时，没有合并访问，只在乎bank config
         }
 
         __syncthreads();
