@@ -6,7 +6,7 @@ __global__ void matrix_multiplication_shared_mem(const float *__restrict__ A, co
 {
     // 申请共享内存
     __shared__ float As[TILE_WIDTH][TILE_WIDTH];
-    __shared__ float Bs[TILE_WIDTH][TILE_WIDTH];
+    __shared__ float Bs[TILE_WIDTH][TILE_WIDTH+1];
 
     int ty = threadIdx.y;
     int tx = threadIdx.x;

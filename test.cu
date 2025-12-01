@@ -1,19 +1,19 @@
-    #include <iostream>
-    #include <cmath>  
-    #include <algorithm> 
-    #include <cuda_runtime.h> // 通常包含这个以明确使用CUDA Runtime API
+#include <iostream>
+#include <cmath>  
+#include <algorithm> 
+#include <cuda_runtime.h> // 通常包含这个以明确使用CUDA Runtime API
 
-    // 定义一个简单的错误检查宏（可选，但强烈建议）
-    #define CHECK_CUDA(call) \
+// 定义一个简单的错误检查宏（可选，但强烈建议）
+#define CHECK_CUDA(call) \
+{ \
+    const cudaError_t error = call; \
+    if (error != cudaSuccess) \
     { \
-        const cudaError_t error = call; \
-        if (error != cudaSuccess) \
-        { \
-            std::cerr << "Error: " << __FILE__ << ":" << __LINE__ << ", " \
-                    << cudaGetErrorString(error) << std::endl; \
-            exit(1); \
-        } \
-    }
+        std::cerr << "Error: " << __FILE__ << ":" << __LINE__ << ", " \
+                << cudaGetErrorString(error) << std::endl; \
+        exit(1); \
+    } \
+}
 
 __global__ void matrix_multiplication_kernel(const float* A, const float* B, float* C, int M, int N, int K) {
     int row =  blockDim.y*blockIdx.y + threadIdx.y;
